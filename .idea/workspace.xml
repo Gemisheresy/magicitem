@@ -50,7 +50,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MagicWeaponForm.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MagicWeaponForm.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MagicWeaponForm.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="155">
@@ -60,10 +60,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Reducer.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Reducer.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Reducer.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
+            <state relative-caret-position="1700">
               <caret line="160" column="45" lean-forward="false" selection-start-line="160" selection-start-column="45" selection-end-line="160" selection-end-column="45" />
               <folding />
             </state>
@@ -272,12 +272,12 @@
       <option name="presentableId" value="Default" />
       <updated>1483381830187</updated>
       <workItem from="1483381831630" duration="13253000" />
-      <workItem from="1483487076980" duration="17472000" />
+      <workItem from="1483487076980" duration="18017000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30725000" />
+    <option name="totallyTimeSpent" value="31270000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1366" height="768" extended-state="0" />
@@ -434,18 +434,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Reducer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="160" column="45" lean-forward="false" selection-start-line="160" selection-start-column="45" selection-end-line="160" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/MagicWeaponForm.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="155">
           <caret line="95" column="55" lean-forward="false" selection-start-line="95" selection-start-column="55" selection-end-line="95" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Reducer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1700">
+          <caret line="160" column="45" lean-forward="false" selection-start-line="160" selection-start-column="45" selection-end-line="160" selection-end-column="45" />
           <folding />
         </state>
       </provider>
