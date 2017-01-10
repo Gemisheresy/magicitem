@@ -84,7 +84,9 @@
 	        bonus: 0,
 	        bonusTo: '',
 	        cost: 100,
-	        days: 4
+	        days: 4,
+	        levelReq: 3,
+	        att: false
 
 	    }
 	};
@@ -102,6 +104,9 @@
 	        _this.decreaseBonus = _this.decreaseBonus.bind(_this);
 	        _this.bonusChange = _this.bonusChange.bind(_this);
 	        _this.updateName = _this.updateName.bind(_this);
+	        _this.updateDescription = _this.updateDescription.bind(_this);
+	        _this.changeAtt = _this.changeAtt.bind(_this);
+	        _this.setRarity = _this.setRarity.bind(_this);
 
 	        return _this;
 	    }
@@ -146,6 +151,29 @@
 	            });
 	        }
 	    }, {
+	        key: 'updateDescription',
+	        value: function updateDescription(text) {
+	            store.dispatch({
+	                type: "UPDATE_DESCRIPTION",
+	                description: text
+	            });
+	        }
+	    }, {
+	        key: 'changeAtt',
+	        value: function changeAtt() {
+	            store.dispatch({
+	                type: "SET_ATTUNEMENT"
+	            });
+	        }
+	    }, {
+	        key: 'setRarity',
+	        value: function setRarity(level) {
+	            store.dispatch({
+	                type: "SET_RARITY",
+	                level: level
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var state = store.getState();
@@ -158,7 +186,10 @@
 	                    handleBonusIncrease: this.increaseBonus,
 	                    handleBonusDecrease: this.decreaseBonus,
 	                    changeBonus: this.bonusChange,
-	                    nameChange: this.updateName
+	                    nameChange: this.updateName,
+	                    updateDescription: this.updateDescription,
+	                    changeAtt: this.changeAtt,
+	                    setRarity: this.setRarity
 	                })
 	            );
 	        }
@@ -22631,8 +22662,8 @@
 	        var oldItem = state.magicItem;
 	        var oldBonus = oldItem.bonus;
 	        var newBonus = 0;
-	        if (oldBonus === 4) {
-	            newBonus = 4;
+	        if (oldBonus === oldItem.maxBonus) {
+	            newBonus = oldItem.maxBonus;
 	        } else {
 	            newBonus = oldBonus + 1;
 	        }
@@ -22691,8 +22722,86 @@
 	        return _extends({}, state, {
 	            magicItem: _newItem4
 	        });
-	    } else if (action.type === "CHANGE_RARITY") {
-	        return state;
+	    } else if (action.type === "SET_RARITY") {
+	        var _oldItem4 = state.magicItem;
+	        if (action.level === 'common') {
+	            var _newItem5 = _extends({}, _oldItem4, {
+	                rarity: action.level,
+	                cost: 100,
+	                maxSpell: 1,
+	                maxBonus: 0,
+	                levelReq: 3,
+	                days: 4
+	            });
+	            return _extends({}, state, {
+	                magicItem: _newItem5
+	            });
+	        } else if (action.level === 'uncommon') {
+	            var _newItem6 = _extends({}, _oldItem4, {
+	                rarity: action.level,
+	                cost: 500,
+	                maxSpell: 3,
+	                maxBonus: 1,
+	                levelReq: 3,
+	                days: 20
+	            });
+	            return _extends({}, state, {
+	                magicItem: _newItem6
+	            });
+	        } else if (action.level === 'rare') {
+	            var _newItem7 = _extends({}, _oldItem4, {
+	                rarity: action.level,
+	                cost: 5000,
+	                maxSpell: 6,
+	                maxBonus: 2,
+	                levelReq: 6,
+	                days: 200
+	            });
+	            return _extends({}, state, {
+	                magicItem: _newItem7
+	            });
+	        } else if (action.level === 'veryrare') {
+	            var _newItem8 = _extends({}, _oldItem4, {
+	                rarity: action.level,
+	                cost: 50000,
+	                maxSpell: 8,
+	                maxBonus: 3,
+	                levelReq: 11,
+	                days: 2000
+	            });
+	            return _extends({}, state, {
+	                magicItem: _newItem8
+	            });
+	        } else if (action.level === 'legendary') {
+	            var _newItem9 = _extends({}, _oldItem4, {
+	                rarity: action.level,
+	                cost: 500000,
+	                maxSpell: 9,
+	                maxBonus: 4,
+	                levelReq: 17,
+	                days: 20000
+	            });
+	            return _extends({}, state, {
+	                magicItem: _newItem9
+	            });
+	        }
+	    } else if (action.type === "UPDATE_DESCRIPTION") {
+	        var _oldItem5 = state.magicItem;
+	        var _newItem10 = _extends({}, _oldItem5, {
+	            description: action.description
+	        });
+	        return _extends({}, state, {
+	            magicItem: _newItem10
+	        });
+	    } else if (action.type === "SET_ATTUNEMENT") {
+	        var _oldItem6 = state.magicItem;
+	        var oldAtt = _oldItem6.att;
+	        var _newItem11 = _extends({}, _oldItem6, {
+	            att: !oldAtt
+	        });
+	        return _extends({}, state, {
+	            magicItem: _newItem11
+	        });
 	    } else {
 	        return state;
 	    }
@@ -22736,6 +22845,9 @@
 	        _this.handleDecrease = _this.handleDecrease.bind(_this);
 	        _this.changeBonus = _this.changeBonus.bind(_this);
 	        _this.nameChange = _this.nameChange.bind(_this);
+	        _this.updateDescription = _this.updateDescription.bind(_this);
+	        _this.changeAtt = _this.changeAtt.bind(_this);
+	        _this.setRarity = _this.setRarity.bind(_this);
 	        return _this;
 	    }
 
@@ -22763,6 +22875,21 @@
 	            this.props.nameChange(this.refs.name.value);
 	        }
 	    }, {
+	        key: "setRarity",
+	        value: function setRarity() {
+	            this.props.setRarity(this.refs.rarity.value);
+	        }
+	    }, {
+	        key: "updateDescription",
+	        value: function updateDescription() {
+	            this.props.updateDescription(this.refs.description.value);
+	        }
+	    }, {
+	        key: "changeAtt",
+	        value: function changeAtt() {
+	            this.props.changeAtt();
+	        }
+	    }, {
 	        key: "render",
 	        value: function render() {
 	            var item = this.props.item;
@@ -22771,107 +22898,201 @@
 	                null,
 	                _react2.default.createElement(
 	                    "div",
-	                    { className: "ui card" },
+	                    { className: "ui segment" },
 	                    _react2.default.createElement(
 	                        "div",
-	                        null,
-	                        _react2.default.createElement("input", { type: "text", ref: "name", onChange: this.nameChange }),
+	                        { className: "ui card centered" },
 	                        _react2.default.createElement(
 	                            "div",
-	                            null,
+	                            { className: "ui form" },
 	                            _react2.default.createElement(
 	                                "div",
 	                                { className: "ui" },
-	                                "+",
-	                                item.bonus
+	                                "Name:"
 	                            ),
+	                            _react2.default.createElement("input", { type: "text", ref: "name", onChange: this.nameChange }),
 	                            _react2.default.createElement(
-	                                "select",
-	                                { ref: "bonusTo", onChange: this.changeBonus },
+	                                "div",
+	                                null,
 	                                _react2.default.createElement(
-	                                    "option",
-	                                    { value: "none" },
-	                                    "-----"
+	                                    "div",
+	                                    { className: "ui segment" },
+	                                    _react2.default.createElement(
+	                                        "div",
+	                                        { className: "ui" },
+	                                        "Rarity",
+	                                        _react2.default.createElement(
+	                                            "select",
+	                                            { ref: "rarity", onChange: this.setRarity },
+	                                            _react2.default.createElement(
+	                                                "option",
+	                                                { value: "common" },
+	                                                "Common"
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                "option",
+	                                                { value: "uncommon" },
+	                                                "Uncommon"
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                "option",
+	                                                { value: "rare" },
+	                                                "Rare"
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                "option",
+	                                                { value: "veryrare" },
+	                                                "Very Rare"
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                "option",
+	                                                { value: "legendary" },
+	                                                "Legendary"
+	                                            )
+	                                        )
+	                                    )
 	                                ),
 	                                _react2.default.createElement(
-	                                    "option",
-	                                    { value: "str" },
-	                                    "Strength"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "option",
-	                                    { value: "dex" },
-	                                    "Dexterity"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "option",
-	                                    { value: "con" },
-	                                    "Constitution"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "option",
-	                                    { value: "int" },
-	                                    "Intelligence"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "option",
-	                                    { value: "wis" },
-	                                    "Wisdom"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "option",
-	                                    { value: "cha" },
-	                                    "Charisma"
-	                                ),
-	                                _react2.default.createElement(
-	                                    "option",
-	                                    { value: "ac" },
-	                                    "Armor Class"
+	                                    "div",
+	                                    { className: "ui segment" },
+	                                    _react2.default.createElement(
+	                                        "div",
+	                                        { className: "ui left aligned" },
+	                                        "Bonus: +",
+	                                        item.bonus
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        "select",
+	                                        { className: "ui centered aligned", ref: "bonusTo", onChange: this.changeBonus },
+	                                        _react2.default.createElement(
+	                                            "option",
+	                                            { value: "" },
+	                                            "-----"
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "option",
+	                                            { value: "str" },
+	                                            "Strength"
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "option",
+	                                            { value: "dex" },
+	                                            "Dexterity"
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "option",
+	                                            { value: "con" },
+	                                            "Constitution"
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "option",
+	                                            { value: "int" },
+	                                            "Intelligence"
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "option",
+	                                            { value: "wis" },
+	                                            "Wisdom"
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "option",
+	                                            { value: "cha" },
+	                                            "Charisma"
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "option",
+	                                            { value: "attack" },
+	                                            "Attack/Damage"
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "option",
+	                                            { value: "armor" },
+	                                            "Armor Class"
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        "div",
+	                                        { className: "ui right aligned buttons" },
+	                                        _react2.default.createElement(
+	                                            "button",
+	                                            { className: "ui button", onClick: this.handleDecrease },
+	                                            _react2.default.createElement("i", { className: "minus icon" })
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "button",
+	                                            { className: "ui button", onClick: this.handleIncrease },
+	                                            _react2.default.createElement("i", { className: "add icon" })
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            "button",
+	                                            { className: "ui button", onClick: this.changeAtt },
+	                                            "Att"
+	                                        )
+	                                    )
 	                                )
 	                            ),
 	                            _react2.default.createElement(
 	                                "div",
-	                                { className: "ui buttons" },
-	                                _react2.default.createElement(
-	                                    "button",
-	                                    { className: "ui button", onClick: this.handleIncrease },
-	                                    _react2.default.createElement("i", { className: "red add square icon" })
-	                                ),
-	                                _react2.default.createElement(
-	                                    "button",
-	                                    { className: "ui button", onClick: this.handleDecrease },
-	                                    _react2.default.createElement("i", { className: "red minus square icon" })
-	                                )
+	                                null,
+	                                _react2.default.createElement("textarea", { className: "ui", ref: "description", onChange: this.updateDescription })
 	                            )
 	                        )
 	                    )
 	                ),
 	                _react2.default.createElement(
 	                    "div",
-	                    { className: "ui card" },
+	                    { className: "ui card centered" },
 	                    _react2.default.createElement(
 	                        "div",
-	                        { className: "rarity" },
-	                        "Rarity: ",
-	                        item.rarity
-	                    ),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "name" },
-	                        "Name: ",
-	                        item.name
-	                    ),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "bonus" },
-	                        "Bonus: ",
-	                        item.bonus
-	                    ),
-	                    _react2.default.createElement(
-	                        "div",
-	                        { className: "bonusTo" },
-	                        "Bonus to: ",
-	                        item.bonusTo
+	                        { className: "content" },
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "rarity" },
+	                            "Rarity: ",
+	                            item.rarity.toUpperCase(),
+	                            " \xA0 ",
+	                            item.att ? "Attunement".toUpperCase() : ""
+	                        ),
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "name" },
+	                            "Name: ",
+	                            item.name
+	                        ),
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "bonus" },
+	                            "Bonus: +",
+	                            item.bonus
+	                        ),
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "bonusTo" },
+	                            "Bonus to: ",
+	                            item.bonusTo
+	                        ),
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "cost" },
+	                            "Cost: ",
+	                            item.cost
+	                        ),
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "cost" },
+	                            "Days to Build: ",
+	                            item.days
+	                        ),
+	                        _react2.default.createElement(
+	                            "div",
+	                            { className: "description" },
+	                            _react2.default.createElement(
+	                                "p",
+	                                null,
+	                                "Description: ",
+	                                item.description
+	                            )
+	                        )
 	                    )
 	                )
 	            );

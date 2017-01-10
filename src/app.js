@@ -14,6 +14,8 @@ const initialState = {
         bonusTo: '',
         cost: 100,
         days: 4,
+        levelReq : 3,
+        att : false
 
     }
 }
@@ -26,6 +28,9 @@ const store = createStore(reducer,initialState)
         this.decreaseBonus = this.decreaseBonus.bind(this);
         this.bonusChange = this.bonusChange.bind(this);
         this.updateName = this.updateName.bind(this);
+        this.updateDescription = this.updateDescription.bind(this)
+        this.changeAtt = this.changeAtt.bind(this)
+        this.setRarity = this.setRarity.bind(this)
 
     }
     componentDidMount(){
@@ -53,6 +58,23 @@ const store = createStore(reducer,initialState)
             name: attr
         })
     }
+    updateDescription(text){
+        store.dispatch({
+            type:"UPDATE_DESCRIPTION",
+            description: text
+        })
+    }
+    changeAtt(){
+        store.dispatch({
+            type: "SET_ATTUNEMENT"
+        })
+    }
+    setRarity(level){
+        store.dispatch({
+            type: "SET_RARITY",
+            level :level
+        })
+    }
     render() {
         const state = store.getState();
         const magicItem =state.magicItem;
@@ -64,6 +86,9 @@ const store = createStore(reducer,initialState)
                    handleBonusDecrease={this.decreaseBonus}
                    changeBonus={this.bonusChange}
                    nameChange={this.updateName}
+                   updateDescription={this.updateDescription}
+                   changeAtt={this.changeAtt}
+                   setRarity={this.setRarity}
                />
 
            </div>
