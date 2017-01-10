@@ -1,6 +1,6 @@
 # magicitem
 
-npm install
+npm install 
 npm start
 navigate in browser to localhost:8080
 
