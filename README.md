@@ -1,4 +1,9 @@
 # magicitem
+
+npm install
+npm start
+navigate in browser to localhost:8080
+
 Magic Item maker for Dungeons and Dragons 
 This uses React, Redux, and Webpack.
 !! 
