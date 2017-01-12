@@ -16,8 +16,8 @@ const initialState = {
         days: 4,
         levelReq : 3,
         att : false
-
-    }
+    },
+    items: []
 }
 const store = createStore(reducer,initialState)
 
@@ -78,10 +78,12 @@ const store = createStore(reducer,initialState)
     render() {
         const state = store.getState();
         const magicItem =state.magicItem;
+        const items= state.items
         return (
            <div>
                <MagicWeaponForm
                    item={magicItem}
+                   items={items}
                    handleBonusIncrease={this.increaseBonus}
                    handleBonusDecrease={this.decreaseBonus}
                    changeBonus={this.bonusChange}
@@ -89,6 +91,7 @@ const store = createStore(reducer,initialState)
                    updateDescription={this.updateDescription}
                    changeAtt={this.changeAtt}
                    setRarity={this.setRarity}
+
                />
 
            </div>
