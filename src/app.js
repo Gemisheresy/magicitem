@@ -30,7 +30,8 @@ const store = createStore(reducer,initialState)
         this.updateName = this.updateName.bind(this);
         this.updateDescription = this.updateDescription.bind(this)
         this.changeAtt = this.changeAtt.bind(this)
-        this.setRarity = this.setRarity.bind(this)
+        this.setRarity = this.setRarity.bind(this);
+        this.addSpell = this.addSpell.bind(this);
 
     }
     componentDidMount(){
@@ -75,6 +76,14 @@ const store = createStore(reducer,initialState)
             level :level
         })
     }
+    addSpell(level,name){
+        store.dispatch({
+            type: 'ADD_SPELL',
+            level: level,
+            name: name
+
+        })
+    }
     render() {
         const state = store.getState();
         const magicItem =state.magicItem;
@@ -91,6 +100,7 @@ const store = createStore(reducer,initialState)
                    updateDescription={this.updateDescription}
                    changeAtt={this.changeAtt}
                    setRarity={this.setRarity}
+                   addSpell={this.addSpell}
 
                />
 

@@ -12,6 +12,7 @@ export default class MagicWeaponForm extends Component {
         this.updateDescription = this.updateDescription.bind(this);
         this.changeAtt = this.changeAtt.bind(this);
         this.setRarity = this.setRarity.bind(this);
+        this.addSpell = this.addSpell.bind(this)
     }
 
     update() {
@@ -44,7 +45,11 @@ export default class MagicWeaponForm extends Component {
     changeAtt() {
         this.props.changeAtt()
     }
-
+    addSpell(){
+        this.props.addSpell(this.refs.spellLvl.value, this.refs.spell.value)
+        this.refs.spellLvl.value = 0;
+        this.refs.spell.value = '';
+    }
     render() {
         const item = this.props.item;
         const items = this.props.items
@@ -52,6 +57,7 @@ export default class MagicWeaponForm extends Component {
             <div>
                 <div className="ui segment">
                     <div className="ui card centered">
+                        <div className="header">Magic Item Builder</div>
                         <div className="ui form">
                             <div className="ui">Name:</div>
                             <input type="text" ref="name" onChange={this.nameChange}/>
@@ -85,14 +91,31 @@ export default class MagicWeaponForm extends Component {
                                         <button className="ui button" onClick={this.handleIncrease}>
                                             <i className="add icon"></i>
                                         </button>
-                                        <button className="ui button" onClick={this.changeAtt}>Att</button>
+                                        <button className="ui button" onClick={this.changeAtt}>Attunement</button>
                                     </div>
                                 </div>
                             </div>
+                            <div className="ui segment">
+                                Spells
+                                <select ref="spellLvl">
+                                    <option value={0}>--</option>
+                                    <option value={1}>1</option>
+                                    <option value={2}>2</option>
+                                    <option value={3}>3</option>
+                                    <option value={4}>4</option>
+                                    <option value={5}>5</option>
+                                    <option value={6}>6</option>
+                                    <option value={7}>7</option>
+                                    <option value={8}>8</option>
+                                    <option value={9}>9</option>
+                                </select>
+                                <input type="text" ref="spell" />
+                                <button className="ui button" onClick={this.addSpell}>Add Spell</button>
+                            </div>
                             <div>
+                                Description
                                 <textarea className="ui" ref="description" onChange={this.updateDescription}></textarea>
                             </div>
-
                         </div>
                         <div className="ui segment">
                             <div className="ui centered">

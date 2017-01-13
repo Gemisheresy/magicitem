@@ -8,6 +8,9 @@ export default class ItemCard extends Component {
 
     render() {
         const item = this.props.item;
+        const spells = item.spells.map((spell,index) => (
+            <div key={index}>{spell.level}  {spell.name}</div>
+        ))
         return (
             <div className="ui card centered">
                 <div className="content">
@@ -21,6 +24,7 @@ export default class ItemCard extends Component {
                     <div className="description">
                         <p>Description: {item.description}</p>
                     </div>
+                    <div className="spell">{spells}</div>
                 </div>
             </div>
         )
