@@ -7,8 +7,8 @@ export default class ItemCardList extends Component{
 
     }
     render(){
-        const items = this.props.items.map((item) => (
-            <ItemCard item={item}/>
+        const items = this.props.items.map((item , index) => (
+            <ItemCard key={index} item={item}/>
         ));
         return (
             <div className="ui cards">

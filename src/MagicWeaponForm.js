@@ -13,6 +13,8 @@ export default class MagicWeaponForm extends Component {
         this.changeAtt = this.changeAtt.bind(this);
         this.setRarity = this.setRarity.bind(this);
         this.addSpell = this.addSpell.bind(this)
+        this.saveItem = this.saveItem.bind(this);
+        this.sendSave= this.sendSave.bind(this);
     }
 
     update() {
@@ -49,6 +51,12 @@ export default class MagicWeaponForm extends Component {
         this.props.addSpell(this.refs.spellLvl.value, this.refs.spell.value)
         this.refs.spellLvl.value = 0;
         this.refs.spell.value = '';
+    }
+    saveItem(){
+        this.props.saveItem()
+    }
+    sendSave(){
+        this.props.sendSave()
     }
     render() {
         const item = this.props.item;
@@ -118,8 +126,9 @@ export default class MagicWeaponForm extends Component {
                             </div>
                         </div>
                         <div className="ui segment">
-                            <div className="ui centered">
-                                <button className="ui centered aligned button blue">Save</button>
+                            <div className="ui centered buttons">
+                                <button className="ui centered aligned button blue" onClick={this.saveItem}>Save</button>
+                                <button className="ui centered aligned button blue" onClick={this.sendSave}>Send Save</button>
                             </div>
                         </div>
                     </div>

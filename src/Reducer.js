@@ -1,3 +1,6 @@
+import apiClient from './tools/api'
+const apiLink = new apiClient();
+
 function reducer(state,action){
     if(action.type === 'INCREASE_BONUS'){
         const oldItem = state.magicItem;
@@ -169,7 +172,23 @@ function reducer(state,action){
             ...state,
             magicItem: newItem
         }
-    } else {
+    } else if(action.type === "SAVE_ITEM"){
+        const item = state.magicItem;
+        return {
+            ...state,
+            items :state.items.concat(item)
+        }
+    }
+    else if (action.type === "SENDING"){
+        const item = state.magicItem
+        apiLink.post('/saveItem',item).then(function(response){
+            console.log(response)
+        },function(error){
+            console.log(error);
+        })
+        return state
+    }
+    else {
         return state
     }
 }

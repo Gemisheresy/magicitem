@@ -28,10 +28,12 @@ const store = createStore(reducer,initialState)
         this.decreaseBonus = this.decreaseBonus.bind(this);
         this.bonusChange = this.bonusChange.bind(this);
         this.updateName = this.updateName.bind(this);
-        this.updateDescription = this.updateDescription.bind(this)
-        this.changeAtt = this.changeAtt.bind(this)
+        this.updateDescription = this.updateDescription.bind(this);
+        this.changeAtt = this.changeAtt.bind(this);
         this.setRarity = this.setRarity.bind(this);
         this.addSpell = this.addSpell.bind(this);
+        this.saveItem = this.saveItem.bind(this);
+        this.sendSave = this.sendSave.bind(this);
 
     }
     componentDidMount(){
@@ -84,10 +86,20 @@ const store = createStore(reducer,initialState)
 
         })
     }
+    saveItem(){
+        store.dispatch({
+            type: "SAVE_ITEM"
+        })
+    }
+    sendSave(){
+        store.dispatch({
+            type: "SENDING"
+        })
+    }
     render() {
         const state = store.getState();
-        const magicItem =state.magicItem;
-        const items= state.items
+        const magicItem = state.magicItem;
+        const items= state.items;
         return (
            <div>
                <MagicWeaponForm
@@ -101,6 +113,8 @@ const store = createStore(reducer,initialState)
                    changeAtt={this.changeAtt}
                    setRarity={this.setRarity}
                    addSpell={this.addSpell}
+                   saveItem={this.saveItem}
+                   sendSave={this.sendSave}
 
                />
 
