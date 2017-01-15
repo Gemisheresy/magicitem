@@ -1,6 +1,6 @@
 # magicitem
 
-https://mwmaker-jzdoxxrwpy.now.sh/
+https://mwmaker-kjtypqprpk.now.sh
 
 
 
