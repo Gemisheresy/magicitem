@@ -1,7 +1,7 @@
 var express = require('express');
 const app = express();
 const JSONParser= require('body-parser').json();
-
+const itemController = require('./Controllers/Items')
 
 const item = require(__dirname + '/Models/Item.js');
 app.use('/lib', express.static(__dirname + '/lib'));
@@ -9,8 +9,8 @@ app.use('/semantic',express.static(__dirname + '/semantic'))
 app.get('/',(req,res)=>{
     res.sendFile(__dirname + "/index.html");
 })
-app.post('/saveItem',JSONParser,(req,res)=>{
-    console.log(req.body)
+app.post('/saveItem',JSONParser,(req,res,next)=> {
+    itemController.saveItem(req,res,next)
 })
 
 

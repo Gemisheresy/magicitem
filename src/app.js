@@ -3,22 +3,24 @@ import ReactDOM from 'react-dom';
 import {createStore} from 'redux';
 import reducer from './Reducer';
 import MagicWeaponForm from './MagicWeaponForm';
+import ItemCardList from './ItemCardList'
 const initialState = {
-    magicItem: {
-        rarity: 'common',
-        maxSpell: 1,
-        spellLvl: 0,
-        spells:[],
-        maxBonus: 0,
-        bonus: 0,
-        bonusTo: '',
-        cost: 100,
-        days: 4,
-        levelReq : 3,
-        att : false
-    },
-    items: []
-}
+    magicItem:  {
+            rarity: 'common',
+            maxSpell: 1,
+            spellLvl: 0,
+            spells: [],
+            maxBonus: 0,
+            bonus: 0,
+            bonusTo: '',
+            cost: 100,
+            days: 4,
+            levelReq: 3,
+            att: false
+        },
+    savedItems: [],
+    appState: {}
+};
 const store = createStore(reducer,initialState)
 
  class App extends Component{
@@ -32,8 +34,12 @@ const store = createStore(reducer,initialState)
         this.changeAtt = this.changeAtt.bind(this);
         this.setRarity = this.setRarity.bind(this);
         this.addSpell = this.addSpell.bind(this);
+        this.removeSpell = this.removeSpell.bind(this);
         this.saveItem = this.saveItem.bind(this);
+        this.deleteItem= this.deleteItem.bind(this);
+        this.updateItem = this.updateItem.bind(this);
         this.sendSave = this.sendSave.bind(this);
+
 
     }
     componentDidMount(){
@@ -86,9 +92,28 @@ const store = createStore(reducer,initialState)
 
         })
     }
-    saveItem(){
+    removeSpell(index){
         store.dispatch({
-            type: "SAVE_ITEM"
+            type: "REMOVE_SPELL",
+            index: index
+        })
+    }
+    saveItem(item){
+        store.dispatch({
+            type: "SAVE_ITEM",
+            item: item
+        })
+    }
+    deleteItem(index){
+        store.dispatch({
+            type:"DELETE_ITEM",
+            index: index
+        })
+    }
+    updateItem(index){
+        store.dispatch({
+            type: "UPDATE_ITEM",
+            index: index
         })
     }
     sendSave(){
@@ -99,12 +124,11 @@ const store = createStore(reducer,initialState)
     render() {
         const state = store.getState();
         const magicItem = state.magicItem;
-        const items= state.items;
+        const savedItems= state.savedItems;
         return (
            <div>
                <MagicWeaponForm
                    item={magicItem}
-                   items={items}
                    handleBonusIncrease={this.increaseBonus}
                    handleBonusDecrease={this.decreaseBonus}
                    changeBonus={this.bonusChange}
@@ -115,9 +139,13 @@ const store = createStore(reducer,initialState)
                    addSpell={this.addSpell}
                    saveItem={this.saveItem}
                    sendSave={this.sendSave}
-
+                   removeSpell={this.removeSpell}
                />
-
+               <ItemCardList
+                   items={savedItems}
+                   deleteItem={this.deleteItem}
+                   updateItem={this.updateItem}
+               />
            </div>
 
         )

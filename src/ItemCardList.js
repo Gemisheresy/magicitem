@@ -5,14 +5,21 @@ export default class ItemCardList extends Component{
     constructor(props){
         super(props);
 
+
     }
+
     render(){
-        const items = this.props.items.map((item , index) => (
-            <ItemCard key={index} item={item}/>
+        const itemsCards = this.props.items.map((item,index)=> (
+            <ItemCard
+                key={index}
+                item={item}
+                deleteItem={this.props.deleteItem}
+                updateItem={this.props.updateItem}
+            />
         ));
         return (
             <div className="ui cards">
-                {items}
+                {itemsCards}
             </div>
         )
     }

@@ -13,6 +13,7 @@ export default class MagicWeaponForm extends Component {
         this.changeAtt = this.changeAtt.bind(this);
         this.setRarity = this.setRarity.bind(this);
         this.addSpell = this.addSpell.bind(this)
+        this.removeSpell = this.removeSpell.bind(this);
         this.saveItem = this.saveItem.bind(this);
         this.sendSave= this.sendSave.bind(this);
     }
@@ -52,15 +53,23 @@ export default class MagicWeaponForm extends Component {
         this.refs.spellLvl.value = 0;
         this.refs.spell.value = '';
     }
-    saveItem(){
-        this.props.saveItem()
+    removeSpell(index){
+        this.props.removeSpell(index)
+    }
+    saveItem(item){
+        this.props.saveItem(item)
     }
     sendSave(){
         this.props.sendSave()
     }
     render() {
         const item = this.props.item;
-        const items = this.props.items
+        const spells = this.props.item.spells.map((spell,index)=> (
+            <div className="spell " key={index}>
+                <p className="">{spell.spellLvl}-{spell.spellName}</p>
+                <button className="ui right aligned negative button" onClick={()=>{this.removeSpell(index)}}>Remove</button>
+            </div>
+        ))
         return (
             <div>
                 <div className="ui segment">
@@ -120,14 +129,15 @@ export default class MagicWeaponForm extends Component {
                                 <input type="text" ref="spell" />
                                 <button className="ui button" onClick={this.addSpell}>Add Spell</button>
                             </div>
+                            <div className="spells ui centered aligned">{spells}</div>
                             <div>
                                 Description
-                                <textarea className="ui" ref="description" onChange={this.updateDescription}></textarea>
+                                <textarea className="ui" ref="description" onChange={this.updateDescription}/>
                             </div>
                         </div>
                         <div className="ui segment">
                             <div className="ui centered buttons">
-                                <button className="ui centered aligned button blue" onClick={this.saveItem}>Save</button>
+                                <button className="ui centered aligned button blue" onClick={()=> this.saveItem(item)}>Save</button>
                                 <button className="ui centered aligned button blue" onClick={this.sendSave}>Send Save</button>
                             </div>
                         </div>
@@ -135,7 +145,6 @@ export default class MagicWeaponForm extends Component {
                 </div>
                 <ItemCard item={item}/>
                 <div className="ui segement">
-                    <ItemCardList items={items}/>
                 </div>
             </div>
         )
